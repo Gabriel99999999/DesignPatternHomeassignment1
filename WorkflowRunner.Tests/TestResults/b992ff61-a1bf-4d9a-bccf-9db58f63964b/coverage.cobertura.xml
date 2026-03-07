@@ -1,0 +1,778 @@
+<?xml version="1.0" encoding="utf-8"?>
+<coverage line-rate="0.8412000000000001" branch-rate="0.7619" version="1.9" timestamp="1772871369" lines-covered="159" lines-valid="189" branches-covered="16" branches-valid="21">
+  <sources>
+    <source>C:\Users\wiede\Documents\Fachhochschule Master\4. Semester\Design Patterns\Homeassignment1\WorkflowRunner.Core\</source>
+  </sources>
+  <packages>
+    <package name="WorkflowRunner.Core" line-rate="0.8412000000000001" branch-rate="0.7619" complexity="66">
+      <classes>
+        <class name="WorkflowRunner.Core.Runtime.ConcurrentWorkflowRunner" filename="Runtime\ConcurrentWorkflowRunner.cs" line-rate="1" branch-rate="1" complexity="5">
+          <methods>
+            <method name="EnqueueAsync" signature="(WorkflowRunner.Core.Domain.ImageJob,System.Threading.CancellationToken)" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="40" hits="22" branch="False" />
+                <line number="41" hits="22" branch="False" />
+                <line number="42" hits="22" branch="False" />
+                <line number="43" hits="22" branch="False" />
+                <line number="44" hits="22" branch="False" />
+                <line number="46" hits="22" branch="False" />
+                <line number="47" hits="22" branch="False" />
+              </lines>
+            </method>
+            <method name="Complete" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="50" hits="6" branch="False" />
+                <line number="51" hits="6" branch="False" />
+                <line number="52" hits="6" branch="False" />
+              </lines>
+            </method>
+            <method name="get_Completion" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="54" hits="6" branch="False" />
+              </lines>
+            </method>
+            <method name="&lt;.ctor&gt;b__5_0" signature="(System.Int32)" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="35" hits="6" branch="False" />
+              </lines>
+            </method>
+            <method name=".ctor" signature="(WorkflowRunner.Core.Runtime.WorkflowRunnerOptions,WorkflowRunner.Core.Abstractions.IJobCommandFactory,WorkflowRunner.Core.Abstractions.IJobRepository,System.Collections.Generic.IReadOnlyCollection`1&lt;WorkflowRunner.Core.Abstractions.IJobObserver&gt;)" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="16" hits="3" branch="False" />
+                <line number="17" hits="3" branch="False" />
+                <line number="18" hits="3" branch="False" />
+                <line number="19" hits="3" branch="False" />
+                <line number="20" hits="3" branch="False" />
+                <line number="21" hits="3" branch="False" />
+                <line number="22" hits="3" branch="False" />
+                <line number="23" hits="3" branch="False" />
+                <line number="24" hits="3" branch="False" />
+                <line number="26" hits="3" branch="False" />
+                <line number="27" hits="3" branch="False" />
+                <line number="28" hits="3" branch="False" />
+                <line number="29" hits="3" branch="False" />
+                <line number="30" hits="3" branch="False" />
+                <line number="31" hits="3" branch="False" />
+                <line number="32" hits="3" branch="False" />
+                <line number="34" hits="3" branch="False" />
+                <line number="36" hits="3" branch="False" />
+                <line number="37" hits="3" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="40" hits="22" branch="False" />
+            <line number="41" hits="22" branch="False" />
+            <line number="42" hits="22" branch="False" />
+            <line number="43" hits="22" branch="False" />
+            <line number="44" hits="22" branch="False" />
+            <line number="46" hits="22" branch="False" />
+            <line number="47" hits="22" branch="False" />
+            <line number="50" hits="6" branch="False" />
+            <line number="51" hits="6" branch="False" />
+            <line number="52" hits="6" branch="False" />
+            <line number="54" hits="6" branch="False" />
+            <line number="35" hits="6" branch="False" />
+            <line number="16" hits="3" branch="False" />
+            <line number="17" hits="3" branch="False" />
+            <line number="18" hits="3" branch="False" />
+            <line number="19" hits="3" branch="False" />
+            <line number="20" hits="3" branch="False" />
+            <line number="21" hits="3" branch="False" />
+            <line number="22" hits="3" branch="False" />
+            <line number="23" hits="3" branch="False" />
+            <line number="24" hits="3" branch="False" />
+            <line number="26" hits="3" branch="False" />
+            <line number="27" hits="3" branch="False" />
+            <line number="28" hits="3" branch="False" />
+            <line number="29" hits="3" branch="False" />
+            <line number="30" hits="3" branch="False" />
+            <line number="31" hits="3" branch="False" />
+            <line number="32" hits="3" branch="False" />
+            <line number="34" hits="3" branch="False" />
+            <line number="36" hits="3" branch="False" />
+            <line number="37" hits="3" branch="False" />
+          </lines>
+        </class>
+        <class name="WorkflowRunner.Core.Runtime.ConcurrentWorkflowRunner/&lt;DisposeAsync&gt;d__10" filename="Runtime\ConcurrentWorkflowRunner.cs" line-rate="1" branch-rate="1" complexity="1">
+          <methods>
+            <method name="MoveNext" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="57" hits="3" branch="False" />
+                <line number="58" hits="3" branch="False" />
+                <line number="59" hits="3" branch="False" />
+                <line number="60" hits="3" branch="False" />
+                <line number="61" hits="3" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="57" hits="3" branch="False" />
+            <line number="58" hits="3" branch="False" />
+            <line number="59" hits="3" branch="False" />
+            <line number="60" hits="3" branch="False" />
+            <line number="61" hits="3" branch="False" />
+          </lines>
+        </class>
+        <class name="WorkflowRunner.Core.Runtime.ConcurrentWorkflowRunner/&lt;ExecuteSingleJobAsync&gt;d__12" filename="Runtime\ConcurrentWorkflowRunner.cs" line-rate="1" branch-rate="1" complexity="1">
+          <methods>
+            <method name="MoveNext" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="72" hits="22" branch="False" />
+                <line number="73" hits="22" branch="False" />
+                <line number="74" hits="22" branch="False" />
+                <line number="75" hits="22" branch="False" />
+                <line number="76" hits="22" branch="False" />
+                <line number="79" hits="22" branch="False" />
+                <line number="80" hits="22" branch="False" />
+                <line number="81" hits="22" branch="False" />
+                <line number="83" hits="21" branch="False" />
+                <line number="84" hits="21" branch="False" />
+                <line number="85" hits="21" branch="False" />
+                <line number="86" hits="21" branch="False" />
+                <line number="87" hits="21" branch="False" />
+                <line number="88" hits="1" branch="False" />
+                <line number="89" hits="1" branch="False" />
+                <line number="90" hits="1" branch="False" />
+                <line number="91" hits="1" branch="False" />
+                <line number="92" hits="1" branch="False" />
+                <line number="93" hits="1" branch="False" />
+                <line number="94" hits="1" branch="False" />
+                <line number="95" hits="22" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="72" hits="22" branch="False" />
+            <line number="73" hits="22" branch="False" />
+            <line number="74" hits="22" branch="False" />
+            <line number="75" hits="22" branch="False" />
+            <line number="76" hits="22" branch="False" />
+            <line number="79" hits="22" branch="False" />
+            <line number="80" hits="22" branch="False" />
+            <line number="81" hits="22" branch="False" />
+            <line number="83" hits="21" branch="False" />
+            <line number="84" hits="21" branch="False" />
+            <line number="85" hits="21" branch="False" />
+            <line number="86" hits="21" branch="False" />
+            <line number="87" hits="21" branch="False" />
+            <line number="88" hits="1" branch="False" />
+            <line number="89" hits="1" branch="False" />
+            <line number="90" hits="1" branch="False" />
+            <line number="91" hits="1" branch="False" />
+            <line number="92" hits="1" branch="False" />
+            <line number="93" hits="1" branch="False" />
+            <line number="94" hits="1" branch="False" />
+            <line number="95" hits="22" branch="False" />
+          </lines>
+        </class>
+        <class name="WorkflowRunner.Core.Runtime.ConcurrentWorkflowRunner/&lt;ProcessLoopAsync&gt;d__11" filename="Runtime\ConcurrentWorkflowRunner.cs" line-rate="1" branch-rate="1" complexity="2">
+          <methods>
+            <method name="MoveNext" signature="()" line-rate="1" branch-rate="1" complexity="2">
+              <lines>
+                <line number="64" hits="6" branch="False" />
+                <line number="65" hits="62" branch="True" condition-coverage="100% (2/2)">
+                  <conditions>
+                    <condition number="380" type="jump" coverage="100%" />
+                  </conditions>
+                </line>
+                <line number="66" hits="22" branch="False" />
+                <line number="67" hits="22" branch="False" />
+                <line number="68" hits="22" branch="False" />
+                <line number="69" hits="6" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="64" hits="6" branch="False" />
+            <line number="65" hits="62" branch="True" condition-coverage="100% (2/2)">
+              <conditions>
+                <condition number="380" type="jump" coverage="100%" />
+              </conditions>
+            </line>
+            <line number="66" hits="22" branch="False" />
+            <line number="67" hits="22" branch="False" />
+            <line number="68" hits="22" branch="False" />
+            <line number="69" hits="6" branch="False" />
+          </lines>
+        </class>
+        <class name="WorkflowRunner.Core.Runtime.WorkflowRunnerOptions" filename="Runtime\WorkflowRunnerOptions.cs" line-rate="1" branch-rate="0.5" complexity="7">
+          <methods>
+            <method name="get_WorkerCount" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="10" hits="3" branch="False" />
+              </lines>
+            </method>
+            <method name="set_WorkerCount" signature="(System.Int32)" line-rate="1" branch-rate="0.5" complexity="2">
+              <lines>
+                <line number="11" hits="3" branch="True" condition-coverage="50% (1/2)">
+                  <conditions>
+                    <condition number="3" type="jump" coverage="50%" />
+                  </conditions>
+                </line>
+              </lines>
+            </method>
+            <method name="get_QueueCapacity" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="16" hits="3" branch="False" />
+              </lines>
+            </method>
+            <method name="set_QueueCapacity" signature="(System.Int32)" line-rate="1" branch-rate="0.5" complexity="2">
+              <lines>
+                <line number="17" hits="3" branch="True" condition-coverage="50% (1/2)">
+                  <conditions>
+                    <condition number="3" type="jump" coverage="50%" />
+                  </conditions>
+                </line>
+              </lines>
+            </method>
+            <method name=".ctor" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="5" hits="3" branch="False" />
+                <line number="6" hits="3" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="10" hits="3" branch="False" />
+            <line number="11" hits="3" branch="True" condition-coverage="50% (1/2)">
+              <conditions>
+                <condition number="3" type="jump" coverage="50%" />
+              </conditions>
+            </line>
+            <line number="16" hits="3" branch="False" />
+            <line number="17" hits="3" branch="True" condition-coverage="50% (1/2)">
+              <conditions>
+                <condition number="3" type="jump" coverage="50%" />
+              </conditions>
+            </line>
+            <line number="5" hits="3" branch="False" />
+            <line number="6" hits="3" branch="False" />
+          </lines>
+        </class>
+        <class name="WorkflowRunner.Core.Processing.SimulatedBlurProcessor/&lt;BlurAsync&gt;d__0" filename="Processing\SimulatedBlurProcessor.cs" line-rate="0" branch-rate="1" complexity="1">
+          <methods>
+            <method name="MoveNext" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="11" hits="0" branch="False" />
+                <line number="12" hits="0" branch="False" />
+                <line number="14" hits="0" branch="False" />
+                <line number="15" hits="0" branch="False" />
+                <line number="16" hits="0" branch="False" />
+                <line number="17" hits="0" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="11" hits="0" branch="False" />
+            <line number="12" hits="0" branch="False" />
+            <line number="14" hits="0" branch="False" />
+            <line number="15" hits="0" branch="False" />
+            <line number="16" hits="0" branch="False" />
+            <line number="17" hits="0" branch="False" />
+          </lines>
+        </class>
+        <class name="WorkflowRunner.Core.Infrastructure.InMemoryJobRepository" filename="Infrastructure\InMemoryJobRepository.cs" line-rate="0.75" branch-rate="1" complexity="4">
+          <methods>
+            <method name="Upsert" signature="(WorkflowRunner.Core.Domain.JobRecord)" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="12" hits="66" branch="False" />
+                <line number="13" hits="110" branch="False" />
+                <line number="14" hits="66" branch="False" />
+              </lines>
+            </method>
+            <method name="TryGet" signature="(System.Guid,WorkflowRunner.Core.Domain.JobRecord&amp;)" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="17" hits="1" branch="False" />
+                <line number="18" hits="1" branch="False" />
+                <line number="19" hits="1" branch="False" />
+                <line number="20" hits="1" branch="False" />
+                <line number="21" hits="1" branch="False" />
+              </lines>
+            </method>
+            <method name="Snapshot" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="24" hits="0" branch="False" />
+                <line number="25" hits="0" branch="False" />
+                <line number="26" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name=".ctor" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="9" hits="3" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="12" hits="66" branch="False" />
+            <line number="13" hits="110" branch="False" />
+            <line number="14" hits="66" branch="False" />
+            <line number="17" hits="1" branch="False" />
+            <line number="18" hits="1" branch="False" />
+            <line number="19" hits="1" branch="False" />
+            <line number="20" hits="1" branch="False" />
+            <line number="21" hits="1" branch="False" />
+            <line number="24" hits="0" branch="False" />
+            <line number="25" hits="0" branch="False" />
+            <line number="26" hits="0" branch="False" />
+            <line number="9" hits="3" branch="False" />
+          </lines>
+        </class>
+        <class name="WorkflowRunner.Core.Infrastructure.ObserverHub" filename="Infrastructure\ObserverHub.cs" line-rate="0.9411" branch-rate="0.5" complexity="3">
+          <methods>
+            <method name="PublishAsync" signature="(WorkflowRunner.Core.Domain.JobEvent,System.Threading.CancellationToken)" line-rate="0.8332999999999999" branch-rate="0.5" complexity="2">
+              <lines>
+                <line number="27" hits="66" branch="False" />
+                <line number="28" hits="66" branch="True" condition-coverage="50% (1/2)">
+                  <conditions>
+                    <condition number="20" type="jump" coverage="50%" />
+                  </conditions>
+                </line>
+                <line number="29" hits="66" branch="False" />
+                <line number="30" hits="66" branch="False" />
+                <line number="33" hits="0" branch="False" />
+                <line number="34" hits="66" branch="False" />
+              </lines>
+            </method>
+            <method name=".ctor" signature="(System.Collections.Generic.IReadOnlyCollection`1&lt;WorkflowRunner.Core.Abstractions.IJobObserver&gt;)" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="13" hits="3" branch="False" />
+                <line number="14" hits="3" branch="False" />
+                <line number="15" hits="3" branch="False" />
+                <line number="16" hits="3" branch="False" />
+                <line number="17" hits="3" branch="False" />
+                <line number="18" hits="3" branch="False" />
+                <line number="19" hits="3" branch="False" />
+                <line number="20" hits="3" branch="False" />
+                <line number="21" hits="3" branch="False" />
+                <line number="23" hits="3" branch="False" />
+                <line number="24" hits="3" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="27" hits="66" branch="False" />
+            <line number="28" hits="66" branch="True" condition-coverage="50% (1/2)">
+              <conditions>
+                <condition number="20" type="jump" coverage="50%" />
+              </conditions>
+            </line>
+            <line number="29" hits="66" branch="False" />
+            <line number="30" hits="66" branch="False" />
+            <line number="33" hits="0" branch="False" />
+            <line number="34" hits="66" branch="False" />
+            <line number="13" hits="3" branch="False" />
+            <line number="14" hits="3" branch="False" />
+            <line number="15" hits="3" branch="False" />
+            <line number="16" hits="3" branch="False" />
+            <line number="17" hits="3" branch="False" />
+            <line number="18" hits="3" branch="False" />
+            <line number="19" hits="3" branch="False" />
+            <line number="20" hits="3" branch="False" />
+            <line number="21" hits="3" branch="False" />
+            <line number="23" hits="3" branch="False" />
+            <line number="24" hits="3" branch="False" />
+          </lines>
+        </class>
+        <class name="WorkflowRunner.Core.Infrastructure.ObserverHub/&lt;DispatchAsync&gt;d__6" filename="Infrastructure\ObserverHub.cs" line-rate="0.7857" branch-rate="1" complexity="4">
+          <methods>
+            <method name="MoveNext" signature="()" line-rate="0.7857" branch-rate="1" complexity="4">
+              <lines>
+                <line number="43" hits="3" branch="False" />
+                <line number="44" hits="141" branch="True" condition-coverage="100% (2/2)">
+                  <conditions>
+                    <condition number="514" type="jump" coverage="100%" />
+                  </conditions>
+                </line>
+                <line number="45" hits="66" branch="False" />
+                <line number="46" hits="330" branch="True" condition-coverage="100% (2/2)">
+                  <conditions>
+                    <condition number="347" type="jump" coverage="100%" />
+                  </conditions>
+                </line>
+                <line number="47" hits="66" branch="False" />
+                <line number="49" hits="66" branch="False" />
+                <line number="50" hits="66" branch="False" />
+                <line number="51" hits="66" branch="False" />
+                <line number="52" hits="0" branch="False" />
+                <line number="53" hits="0" branch="False" />
+                <line number="55" hits="0" branch="False" />
+                <line number="56" hits="66" branch="False" />
+                <line number="57" hits="66" branch="False" />
+                <line number="58" hits="3" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="43" hits="3" branch="False" />
+            <line number="44" hits="141" branch="True" condition-coverage="100% (2/2)">
+              <conditions>
+                <condition number="514" type="jump" coverage="100%" />
+              </conditions>
+            </line>
+            <line number="45" hits="66" branch="False" />
+            <line number="46" hits="330" branch="True" condition-coverage="100% (2/2)">
+              <conditions>
+                <condition number="347" type="jump" coverage="100%" />
+              </conditions>
+            </line>
+            <line number="47" hits="66" branch="False" />
+            <line number="49" hits="66" branch="False" />
+            <line number="50" hits="66" branch="False" />
+            <line number="51" hits="66" branch="False" />
+            <line number="52" hits="0" branch="False" />
+            <line number="53" hits="0" branch="False" />
+            <line number="55" hits="0" branch="False" />
+            <line number="56" hits="66" branch="False" />
+            <line number="57" hits="66" branch="False" />
+            <line number="58" hits="3" branch="False" />
+          </lines>
+        </class>
+        <class name="WorkflowRunner.Core.Infrastructure.ObserverHub/&lt;DisposeAsync&gt;d__5" filename="Infrastructure\ObserverHub.cs" line-rate="1" branch-rate="1" complexity="1">
+          <methods>
+            <method name="MoveNext" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="37" hits="3" branch="False" />
+                <line number="38" hits="3" branch="False" />
+                <line number="39" hits="3" branch="False" />
+                <line number="40" hits="3" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="37" hits="3" branch="False" />
+            <line number="38" hits="3" branch="False" />
+            <line number="39" hits="3" branch="False" />
+            <line number="40" hits="3" branch="False" />
+          </lines>
+        </class>
+        <class name="WorkflowRunner.Core.Infrastructure.ThreadSafeJobMetrics" filename="Infrastructure\ThreadSafeJobMetrics.cs" line-rate="0.6562" branch-rate="0.7777" complexity="14">
+          <methods>
+            <method name="get_QueuedCount" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="18" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="get_StartedCount" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="19" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="get_CompletedCount" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="20" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="get_FailedCount" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="21" hits="1" branch="False" />
+              </lines>
+            </method>
+            <method name="get_AverageDuration" signature="()" line-rate="0" branch-rate="0" complexity="2">
+              <lines>
+                <line number="26" hits="0" branch="False" />
+                <line number="27" hits="0" branch="False" />
+                <line number="28" hits="0" branch="True" condition-coverage="0% (0/2)">
+                  <conditions>
+                    <condition number="15" type="jump" coverage="0%" />
+                  </conditions>
+                </line>
+                <line number="29" hits="0" branch="False" />
+                <line number="30" hits="0" branch="False" />
+                <line number="33" hits="0" branch="False" />
+                <line number="34" hits="0" branch="False" />
+                <line number="35" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="OnJobEventAsync" signature="(WorkflowRunner.Core.Domain.JobEvent,System.Threading.CancellationToken)" line-rate="1" branch-rate="1" complexity="7">
+              <lines>
+                <line number="39" hits="63" branch="False" />
+                <line number="40" hits="63" branch="True" condition-coverage="100% (5/5)">
+                  <conditions>
+                    <condition number="11" type="switch" coverage="100%" />
+                  </conditions>
+                </line>
+                <line number="43" hits="21" branch="False" />
+                <line number="44" hits="21" branch="False" />
+                <line number="46" hits="21" branch="False" />
+                <line number="47" hits="21" branch="False" />
+                <line number="48" hits="21" branch="False" />
+                <line number="50" hits="20" branch="False" />
+                <line number="51" hits="20" branch="True" condition-coverage="100% (2/2)">
+                  <conditions>
+                    <condition number="124" type="jump" coverage="100%" />
+                  </conditions>
+                </line>
+                <line number="52" hits="20" branch="False" />
+                <line number="53" hits="20" branch="False" />
+                <line number="54" hits="20" branch="False" />
+                <line number="55" hits="20" branch="False" />
+                <line number="56" hits="20" branch="False" />
+                <line number="58" hits="1" branch="False" />
+                <line number="59" hits="1" branch="False" />
+                <line number="60" hits="1" branch="False" />
+                <line number="63" hits="63" branch="False" />
+                <line number="64" hits="63" branch="False" />
+              </lines>
+            </method>
+            <method name=".ctor" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="11" hits="2" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="18" hits="0" branch="False" />
+            <line number="19" hits="0" branch="False" />
+            <line number="20" hits="0" branch="False" />
+            <line number="21" hits="1" branch="False" />
+            <line number="26" hits="0" branch="False" />
+            <line number="27" hits="0" branch="False" />
+            <line number="28" hits="0" branch="True" condition-coverage="0% (0/2)">
+              <conditions>
+                <condition number="15" type="jump" coverage="0%" />
+              </conditions>
+            </line>
+            <line number="29" hits="0" branch="False" />
+            <line number="30" hits="0" branch="False" />
+            <line number="33" hits="0" branch="False" />
+            <line number="34" hits="0" branch="False" />
+            <line number="35" hits="0" branch="False" />
+            <line number="39" hits="63" branch="False" />
+            <line number="40" hits="63" branch="True" condition-coverage="100% (5/5)">
+              <conditions>
+                <condition number="11" type="switch" coverage="100%" />
+              </conditions>
+            </line>
+            <line number="43" hits="21" branch="False" />
+            <line number="44" hits="21" branch="False" />
+            <line number="46" hits="21" branch="False" />
+            <line number="47" hits="21" branch="False" />
+            <line number="48" hits="21" branch="False" />
+            <line number="50" hits="20" branch="False" />
+            <line number="51" hits="20" branch="True" condition-coverage="100% (2/2)">
+              <conditions>
+                <condition number="124" type="jump" coverage="100%" />
+              </conditions>
+            </line>
+            <line number="52" hits="20" branch="False" />
+            <line number="53" hits="20" branch="False" />
+            <line number="54" hits="20" branch="False" />
+            <line number="55" hits="20" branch="False" />
+            <line number="56" hits="20" branch="False" />
+            <line number="58" hits="1" branch="False" />
+            <line number="59" hits="1" branch="False" />
+            <line number="60" hits="1" branch="False" />
+            <line number="63" hits="63" branch="False" />
+            <line number="64" hits="63" branch="False" />
+            <line number="11" hits="2" branch="False" />
+          </lines>
+        </class>
+        <class name="WorkflowRunner.Core.Factories.BlurJobCommandFactory" filename="Factories\BlurJobCommandFactory.cs" line-rate="1" branch-rate="1" complexity="2">
+          <methods>
+            <method name="Create" signature="(WorkflowRunner.Core.Domain.ImageJob)" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="17" hits="22" branch="False" />
+                <line number="18" hits="22" branch="False" />
+                <line number="19" hits="22" branch="False" />
+              </lines>
+            </method>
+            <method name=".ctor" signature="(WorkflowRunner.Core.Abstractions.IBlurProcessor)" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="11" hits="3" branch="False" />
+                <line number="12" hits="3" branch="False" />
+                <line number="13" hits="3" branch="False" />
+                <line number="14" hits="3" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="17" hits="22" branch="False" />
+            <line number="18" hits="22" branch="False" />
+            <line number="19" hits="22" branch="False" />
+            <line number="11" hits="3" branch="False" />
+            <line number="12" hits="3" branch="False" />
+            <line number="13" hits="3" branch="False" />
+            <line number="14" hits="3" branch="False" />
+          </lines>
+        </class>
+        <class name="WorkflowRunner.Core.Domain.ImageJob" filename="Domain\ImageJob.cs" line-rate="0.8" branch-rate="1" complexity="5">
+          <methods>
+            <method name="get_Id" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="4" hits="139" branch="False" />
+              </lines>
+            </method>
+            <method name="get_SourcePath" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="5" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="get_TargetPath" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="6" hits="21" branch="False" />
+              </lines>
+            </method>
+            <method name="get_BlurRadius" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="7" hits="22" branch="False" />
+              </lines>
+            </method>
+            <method name=".ctor" signature="(System.Guid,System.String,System.String,System.Int32)" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="3" hits="22" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="4" hits="139" branch="False" />
+            <line number="5" hits="0" branch="False" />
+            <line number="6" hits="21" branch="False" />
+            <line number="7" hits="22" branch="False" />
+            <line number="3" hits="22" branch="False" />
+          </lines>
+        </class>
+        <class name="WorkflowRunner.Core.Domain.JobEvent" filename="Domain\JobEvent.cs" line-rate="0.6666" branch-rate="1" complexity="6">
+          <methods>
+            <method name="get_JobId" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="4" hits="48" branch="False" />
+              </lines>
+            </method>
+            <method name="get_Status" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="5" hits="69" branch="False" />
+              </lines>
+            </method>
+            <method name="get_OccurredAt" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="6" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="get_Message" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="7" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="get_Error" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="8" hits="66" branch="False" />
+              </lines>
+            </method>
+            <method name=".ctor" signature="(System.Guid,WorkflowRunner.Core.Domain.JobStatus,System.DateTimeOffset,System.String,System.String)" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="3" hits="66" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="4" hits="48" branch="False" />
+            <line number="5" hits="69" branch="False" />
+            <line number="6" hits="0" branch="False" />
+            <line number="7" hits="0" branch="False" />
+            <line number="8" hits="66" branch="False" />
+            <line number="3" hits="66" branch="False" />
+          </lines>
+        </class>
+        <class name="WorkflowRunner.Core.Domain.JobExecutionResult" filename="Domain\JobExecutionResult.cs" line-rate="1" branch-rate="1" complexity="1">
+          <methods>
+            <method name="get_OutputPath" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="3" hits="42" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="3" hits="42" branch="False" />
+          </lines>
+        </class>
+        <class name="WorkflowRunner.Core.Domain.JobRecord" filename="Domain\JobRecord.cs" line-rate="0.6666" branch-rate="1" complexity="6">
+          <methods>
+            <method name="get_Job" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="4" hits="66" branch="False" />
+              </lines>
+            </method>
+            <method name="get_Status" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="5" hits="1" branch="False" />
+              </lines>
+            </method>
+            <method name="get_OutputPath" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="6" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="get_ErrorMessage" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="7" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="get_UpdatedAt" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="8" hits="66" branch="False" />
+              </lines>
+            </method>
+            <method name=".ctor" signature="(WorkflowRunner.Core.Domain.ImageJob,WorkflowRunner.Core.Domain.JobStatus,System.String,System.String,System.DateTimeOffset)" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="3" hits="66" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="4" hits="66" branch="False" />
+            <line number="5" hits="1" branch="False" />
+            <line number="6" hits="0" branch="False" />
+            <line number="7" hits="0" branch="False" />
+            <line number="8" hits="66" branch="False" />
+            <line number="3" hits="66" branch="False" />
+          </lines>
+        </class>
+        <class name="WorkflowRunner.Core.Commands.BlurImageCommand" filename="Commands\BlurImageCommand.cs" line-rate="0.8332999999999999" branch-rate="1" complexity="2">
+          <methods>
+            <method name="get_JobId" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="17" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name=".ctor" signature="(WorkflowRunner.Core.Domain.ImageJob,WorkflowRunner.Core.Abstractions.IBlurProcessor)" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="11" hits="22" branch="False" />
+                <line number="12" hits="22" branch="False" />
+                <line number="13" hits="22" branch="False" />
+                <line number="14" hits="22" branch="False" />
+                <line number="15" hits="22" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="17" hits="0" branch="False" />
+            <line number="11" hits="22" branch="False" />
+            <line number="12" hits="22" branch="False" />
+            <line number="13" hits="22" branch="False" />
+            <line number="14" hits="22" branch="False" />
+            <line number="15" hits="22" branch="False" />
+          </lines>
+        </class>
+        <class name="WorkflowRunner.Core.Commands.BlurImageCommand/&lt;ExecuteAsync&gt;d__5" filename="Commands\BlurImageCommand.cs" line-rate="1" branch-rate="1" complexity="1">
+          <methods>
+            <method name="MoveNext" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="20" hits="22" branch="False" />
+                <line number="21" hits="22" branch="False" />
+                <line number="22" hits="21" branch="False" />
+                <line number="23" hits="21" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="20" hits="22" branch="False" />
+            <line number="21" hits="22" branch="False" />
+            <line number="22" hits="21" branch="False" />
+            <line number="23" hits="21" branch="False" />
+          </lines>
+        </class>
+      </classes>
+    </package>
+  </packages>
+</coverage>
