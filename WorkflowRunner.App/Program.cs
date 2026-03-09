@@ -4,10 +4,11 @@ using WorkflowRunner.Core.Infrastructure;
 using WorkflowRunner.Core.Processing;
 using WorkflowRunner.Core.Runtime;
 
-var inputDirectory = Path.GetFullPath("../../../../input");
-var outputDirectory = Path.GetFullPath("../../../../output");
-var blurRadius = 9;
-var workerCount = 4;
+var inputDirectory = args.Length > 0 ? args[0] : Path.Combine(Environment.CurrentDirectory, "input");
+var outputDirectory = args.Length > 1 ? args[1] : Path.Combine(Environment.CurrentDirectory, "output");
+var blurRadius = args.Length > 2 && int.TryParse(args[2], out var parsedRadius) ? Math.Max(1, parsedRadius) : 3;
+var workerCount = args.Length > 3 && int.TryParse(args[3], out var parsedWorkers) ? Math.Max(1, parsedWorkers) : 4;
+var operation = args.Length > 4 ? ParseOperation(args[4]) : ImageOperation.Blur;
 
 if (!Directory.Exists(inputDirectory))
 {
@@ -37,25 +38,28 @@ var options = new WorkflowRunnerOptions
 
 var repository = new InMemoryJobRepository();
 var metrics = new ThreadSafeJobMetrics();
-var processor = new BlurProcessor();
-var factory = new BlurJobCommandFactory(processor);
+var blurProcessor = new BlurProcessor();
+var grayscaleProcessor = new GrayscaleProcessor();
+var creator = new ImageJobCommandCreator(blurProcessor, grayscaleProcessor);
 
 await using var runner = new ConcurrentWorkflowRunner(
     options,
-    factory,
+    creator,
     repository,
     new[] { metrics });
 
 foreach (var sourcePath in imageFiles)
 {
     var fileName = Path.GetFileNameWithoutExtension(sourcePath);
-    var targetPath = Path.Combine(outputDirectory, $"{fileName}_blurred.jpg");
+    var suffix = operation == ImageOperation.Blur ? "blurred" : "grayscale";
+    var targetPath = Path.Combine(outputDirectory, $"{fileName}_{suffix}.jpg");
 
     var job = new ImageJob(
         Guid.NewGuid(),
         sourcePath,
         targetPath,
-        blurRadius);
+        blurRadius,
+        operation);
 
     await runner.EnqueueAsync(job, CancellationToken.None);
 }
@@ -65,6 +69,7 @@ await runner.Completion;
 
 Console.WriteLine($"Input: {inputDirectory}");
 Console.WriteLine($"Output: {outputDirectory}");
+Console.WriteLine($"Operation: {operation}");
 Console.WriteLine($"Files: {imageFiles.Length}");
 Console.WriteLine($"Queued: {metrics.QueuedCount}");
 Console.WriteLine($"Started: {metrics.StartedCount}");
@@ -78,4 +83,11 @@ static bool IsJpeg(string path)
     var extension = Path.GetExtension(path);
     return extension.Equals(".jpg", StringComparison.OrdinalIgnoreCase)
         || extension.Equals(".jpeg", StringComparison.OrdinalIgnoreCase);
+}
+
+static ImageOperation ParseOperation(string value)
+{
+    return value.Equals("grayscale", StringComparison.OrdinalIgnoreCase)
+        ? ImageOperation.Grayscale
+        : ImageOperation.Blur;
 }

@@ -7,7 +7,7 @@ namespace WorkflowRunner.Core.Runtime;
 
 public sealed class ConcurrentWorkflowRunner : IAsyncDisposable
 {
-    private readonly IJobCommandFactory _commandFactory;
+    private readonly JobCommandCreator _commandCreator;
     private readonly IJobRepository _repository;
     private readonly ObserverHub _observerHub;
     private readonly Channel<ImageJob> _queue;
@@ -15,11 +15,11 @@ public sealed class ConcurrentWorkflowRunner : IAsyncDisposable
 
     public ConcurrentWorkflowRunner(
         WorkflowRunnerOptions options,
-        IJobCommandFactory commandFactory,
+        JobCommandCreator commandCreator,
         IJobRepository repository,
         IReadOnlyCollection<IJobObserver> observers)
     {
-        _commandFactory = commandFactory;
+        _commandCreator = commandCreator;
         _repository = repository;
         _observerHub = new ObserverHub(observers);
 
@@ -77,7 +77,7 @@ public sealed class ConcurrentWorkflowRunner : IAsyncDisposable
 
         try
         {
-            var command = _commandFactory.Create(job);
+            var command = _commandCreator.CreateCommand(job);
             var result = await command.ExecuteAsync(CancellationToken.None).ConfigureAwait(false);
 
             _repository.Upsert(new JobRecord(job, JobStatus.Completed, result.OutputPath, null, DateTimeOffset.UtcNow));

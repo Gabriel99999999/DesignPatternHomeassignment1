@@ -16,7 +16,7 @@ public sealed class WorkflowRunnerTests
         var tracker = new ConcurrencyTrackingBlurProcessor(delayMs: 40);
         var runner = new ConcurrentWorkflowRunner(
             new WorkflowRunnerOptions { WorkerCount = 3, QueueCapacity = 20 },
-            new BlurJobCommandFactory(tracker),
+            new ImageJobCommandCreator(tracker, new NoOpGrayscaleProcessor()),
             new InMemoryJobRepository(),
             new IJobObserver[] { new ThreadSafeJobMetrics() });
 
@@ -24,7 +24,7 @@ public sealed class WorkflowRunnerTests
         {
             for (var i = 0; i < 20; i++)
             {
-                await runner.EnqueueAsync(new ImageJob(Guid.NewGuid(), "in", "out", 3), CancellationToken.None);
+                await runner.EnqueueAsync(new ImageJob(Guid.NewGuid(), "in", "out", 3, ImageOperation.Blur), CancellationToken.None);
             }
 
             runner.Complete();
@@ -45,11 +45,11 @@ public sealed class WorkflowRunnerTests
         var metrics = new ThreadSafeJobMetrics();
         var runner = new ConcurrentWorkflowRunner(
             new WorkflowRunnerOptions { WorkerCount = 2, QueueCapacity = 10 },
-            new BlurJobCommandFactory(new FailingBlurProcessor()),
+            new ImageJobCommandCreator(new FailingBlurProcessor(), new NoOpGrayscaleProcessor()),
             repository,
             new IJobObserver[] { metrics });
 
-        var job = new ImageJob(Guid.NewGuid(), "in", "out", 3);
+        var job = new ImageJob(Guid.NewGuid(), "in", "out", 3, ImageOperation.Blur);
 
         try
         {
@@ -74,11 +74,11 @@ public sealed class WorkflowRunnerTests
         var collector = new CollectingObserver();
         var runner = new ConcurrentWorkflowRunner(
             new WorkflowRunnerOptions { WorkerCount = 1, QueueCapacity = 5 },
-            new BlurJobCommandFactory(new ConcurrencyTrackingBlurProcessor(delayMs: 5)),
+            new ImageJobCommandCreator(new ConcurrencyTrackingBlurProcessor(delayMs: 5), new NoOpGrayscaleProcessor()),
             new InMemoryJobRepository(),
             new IJobObserver[] { collector });
 
-        var job = new ImageJob(Guid.NewGuid(), "in", "out", 1);
+        var job = new ImageJob(Guid.NewGuid(), "in", "out", 1, ImageOperation.Blur);
 
         try
         {
@@ -96,11 +96,40 @@ public sealed class WorkflowRunnerTests
         Assert.Contains(collector.Events, e => e.JobId == job.Id && e.Status == JobStatus.Completed);
     }
 
+    [Fact]
+    public async Task Uses_Grayscale_Command_For_Grayscale_Jobs()
+    {
+        var blur = new ConcurrencyTrackingBlurProcessor(delayMs: 1);
+        var grayscale = new TrackingGrayscaleProcessor();
+        var runner = new ConcurrentWorkflowRunner(
+            new WorkflowRunnerOptions { WorkerCount = 1, QueueCapacity = 5 },
+            new ImageJobCommandCreator(blur, grayscale),
+            new InMemoryJobRepository(),
+            new IJobObserver[] { new ThreadSafeJobMetrics() });
+
+        var job = new ImageJob(Guid.NewGuid(), "in", "out", 1, ImageOperation.Grayscale);
+
+        try
+        {
+            await runner.EnqueueAsync(job, CancellationToken.None);
+            runner.Complete();
+            await runner.Completion;
+        }
+        finally
+        {
+            await runner.DisposeAsync();
+        }
+
+        Assert.Equal(0, blur.CallCount);
+        Assert.Equal(1, grayscale.CallCount);
+    }
+
     private sealed class ConcurrencyTrackingBlurProcessor : IBlurProcessor
     {
         private readonly int _delayMs;
         private int _inFlight;
         private int _maxObservedConcurrency;
+        private int _callCount;
 
         public ConcurrencyTrackingBlurProcessor(int delayMs)
         {
@@ -108,9 +137,12 @@ public sealed class WorkflowRunnerTests
         }
 
         public int MaxObservedConcurrency => Volatile.Read(ref _maxObservedConcurrency);
+        public int CallCount => Volatile.Read(ref _callCount);
 
         public async Task<string> BlurAsync(ImageJob job, CancellationToken cancellationToken)
         {
+            Interlocked.Increment(ref _callCount);
+
             var nowInFlight = Interlocked.Increment(ref _inFlight);
             UpdateMax(nowInFlight);
 
@@ -142,6 +174,27 @@ public sealed class WorkflowRunnerTests
         public Task<string> BlurAsync(ImageJob job, CancellationToken cancellationToken)
         {
             throw new InvalidOperationException("Simulated processing failure.");
+        }
+    }
+
+    private sealed class NoOpGrayscaleProcessor : IGrayscaleProcessor
+    {
+        public Task<string> ConvertAsync(ImageJob job, CancellationToken cancellationToken)
+        {
+            return Task.FromResult($"{job.TargetPath}-gray");
+        }
+    }
+
+    private sealed class TrackingGrayscaleProcessor : IGrayscaleProcessor
+    {
+        private int _callCount;
+
+        public int CallCount => Volatile.Read(ref _callCount);
+
+        public Task<string> ConvertAsync(ImageJob job, CancellationToken cancellationToken)
+        {
+            Interlocked.Increment(ref _callCount);
+            return Task.FromResult($"{job.TargetPath}-gray");
         }
     }
 

@@ -4,4 +4,5 @@ public sealed record ImageJob(
     Guid Id,
     string SourcePath,
     string TargetPath,
-    int BlurRadius);
+    int BlurRadius,
+    ImageOperation Operation = ImageOperation.Blur);

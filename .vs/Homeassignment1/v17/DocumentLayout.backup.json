@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\wiede\\Documents\\Fachhochschule Master\\4. Semester\\Design Patterns\\Homeassignment1\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{8419A45E-5B5A-4DE6-A962-410BF5BC5A06}|WorkflowRunner.App\\WorkflowRunner.App.csproj|c:\\users\\wiede\\documents\\fachhochschule master\\4. semester\\design patterns\\homeassignment1\\workflowrunner.app\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8419A45E-5B5A-4DE6-A962-410BF5BC5A06}|WorkflowRunner.App\\WorkflowRunner.App.csproj|solutionrelative:workflowrunner.app\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{BC27B1AC-F6EF-1284-8AAD-E8BE2D188152}|WorkflowRunner.Core\\WorkflowRunner.Core.csproj|c:\\users\\wiede\\documents\\fachhochschule master\\4. semester\\design patterns\\homeassignment1\\workflowrunner.core\\processing\\blurprocessor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BC27B1AC-F6EF-1284-8AAD-E8BE2D188152}|WorkflowRunner.Core\\WorkflowRunner.Core.csproj|solutionrelative:workflowrunner.core\\processing\\blurprocessor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8419A45E-5B5A-4DE6-A962-410BF5BC5A06}|WorkflowRunner.App\\WorkflowRunner.App.csproj|c:\\users\\wiede\\documents\\fachhochschule master\\4. semester\\design patterns\\homeassignment1\\workflowrunner.app\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8419A45E-5B5A-4DE6-A962-410BF5BC5A06}|WorkflowRunner.App\\WorkflowRunner.App.csproj|solutionrelative:workflowrunner.app\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{BC27B1AC-F6EF-1284-8AAD-E8BE2D188152}|WorkflowRunner.Core\\WorkflowRunner.Core.csproj|c:\\users\\wiede\\documents\\fachhochschule master\\4. semester\\design patterns\\homeassignment1\\workflowrunner.core\\factories\\blurjobcommandfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -33,7 +33,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -41,13 +41,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "BlurProcessor.cs",
               "DocumentMoniker": "C:\\Users\\wiede\\Documents\\Fachhochschule Master\\4. Semester\\Design Patterns\\Homeassignment1\\WorkflowRunner.Core\\Processing\\BlurProcessor.cs",
               "RelativeDocumentMoniker": "WorkflowRunner.Core\\Processing\\BlurProcessor.cs",
               "ToolTip": "C:\\Users\\wiede\\Documents\\Fachhochschule Master\\4. Semester\\Design Patterns\\Homeassignment1\\WorkflowRunner.Core\\Processing\\BlurProcessor.cs",
               "RelativeToolTip": "WorkflowRunner.Core\\Processing\\BlurProcessor.cs",
-              "ViewState": "AgIAAAoAAAAAAAAAAAAzwAgAAAAhAAAAAAAAAA==",
+              "ViewState": "AgIAADsAAAAAAAAAAAAgwGwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-03-07T10:29:35.531Z",
               "EditorCaption": ""
@@ -74,21 +74,19 @@
               "RelativeToolTip": "WorkflowRunner.Core\\Factories\\BlurJobCommandFactory.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAABEAAAAjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-07T08:26:47.385Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-07T08:26:47.385Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\wiede\\Documents\\Fachhochschule Master\\4. Semester\\Design Patterns\\Homeassignment1\\WorkflowRunner.App\\Program.cs",
               "RelativeDocumentMoniker": "WorkflowRunner.App\\Program.cs",
               "ToolTip": "C:\\Users\\wiede\\Documents\\Fachhochschule Master\\4. Semester\\Design Patterns\\Homeassignment1\\WorkflowRunner.App\\Program.cs",
               "RelativeToolTip": "WorkflowRunner.App\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAA0AAAAAAAAAA==",
+              "ViewState": "AgIAACAAAAAAAAAAAAAAADUAAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-07T08:16:24.393Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-07T08:16:24.393Z"
             },
             {
               "$type": "Document",
