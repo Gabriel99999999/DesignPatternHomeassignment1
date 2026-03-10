@@ -1,0 +1,10 @@
+<Project>
+  <PropertyGroup Condition="'$(MSBuildProjectName)'=='WorkflowRunner.Tests'">
+    <CollectCoverage>true</CollectCoverage>
+    <CoverletOutput>../TestResults/Coverage/</CoverletOutput>
+    <CoverletOutputFormat>json,lcov</CoverletOutputFormat>
+    <ExcludeByFile>**/Processing/*.cs</ExcludeByFile>
+    <Threshold>70</Threshold>
+    <ThresholdType>line</ThresholdType>
+  </PropertyGroup>
+</Project>

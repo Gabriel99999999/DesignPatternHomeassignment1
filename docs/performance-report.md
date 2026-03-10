@@ -2,7 +2,8 @@
 
 | Run Date | Input Size | Worker Count | Blur Radius | Operation | Avg Duration (ms) | Throughput (files/s) | Notes |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| _TBD_ | | | | | | | |
+| 2026-03-11 | 100 JPGs (default `/input`) | 2 | 5 | Blur | 27.9 | 62.9 | Baseline run, `dotnet run --no-build -- input output 5 2 blur`, wall clock 1.59 s. |
+| 2026-03-11 | 100 JPGs (same set) | 4 | 5 | Blur | 27.3 | 63.7 | Optimization attempt: doubled workers, slight throughput gain; note diminishing returns because processors are CPU-bound. |
 
 ## Methodology
 
@@ -16,4 +17,4 @@
 
 ## Optimization Log
 
-- _TBD_: document tuning experiments (e.g., worker count adjustments, processor optimizations) and link to supporting PRs or commits.
+- 2026-03-11: Compared 2 vs 4 workers; throughput improved ~1.2 files/s, indicating IO/CPU mix rather than pure queue contention. Future optimizations should focus on processor SIMD usage instead of simply raising worker count.

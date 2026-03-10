@@ -124,6 +124,44 @@ public sealed class WorkflowRunnerTests
         Assert.Equal(1, grayscale.CallCount);
     }
 
+    [Fact]
+    public async Task Detects_Out_Of_Order_Lifecycle_Events_Under_Load()
+    {
+        var orderingObserver = new OrderingObserver();
+        var tracker = new ConcurrencyTrackingBlurProcessor(delayMs: 5);
+        var runner = new ConcurrentWorkflowRunner(
+            new WorkflowRunnerOptions { WorkerCount = 4, QueueCapacity = 40 },
+            new ImageJobCommandCreator(tracker, new NoOpGrayscaleProcessor()),
+            new InMemoryJobRepository(),
+            new IJobObserver[] { orderingObserver });
+
+        var jobs = Enumerable.Range(0, 40)
+            .Select(_ => new ImageJob(Guid.NewGuid(), "in", "out", 2, ImageOperation.Blur))
+            .ToArray();
+
+        try
+        {
+            foreach (var job in jobs)
+            {
+                await runner.EnqueueAsync(job, CancellationToken.None);
+            }
+
+            runner.Complete();
+            await runner.Completion;
+        }
+        finally
+        {
+            await runner.DisposeAsync();
+        }
+
+        Assert.Empty(orderingObserver.Violations);
+        foreach (var job in jobs)
+        {
+            Assert.True(orderingObserver.FinalStates.TryGetValue(job.Id, out var finalStatus));
+            Assert.Equal(JobStatus.Completed, finalStatus);
+        }
+    }
+
     private sealed class ConcurrencyTrackingBlurProcessor : IBlurProcessor
     {
         private readonly int _delayMs;
@@ -206,6 +244,38 @@ public sealed class WorkflowRunnerTests
         {
             Events.Add(jobEvent);
             return Task.CompletedTask;
+        }
+    }
+
+    private sealed class OrderingObserver : IJobObserver
+    {
+        private static readonly Dictionary<JobStatus, int> StatusOrder = new()
+        {
+            [JobStatus.Queued] = 0,
+            [JobStatus.Running] = 1,
+            [JobStatus.Completed] = 2,
+            [JobStatus.Failed] = 2
+        };
+
+        public ConcurrentDictionary<Guid, JobStatus> FinalStates { get; } = new();
+        public ConcurrentBag<string> Violations { get; } = new();
+
+        public async Task OnJobEventAsync(JobEvent jobEvent, CancellationToken cancellationToken)
+        {
+            if (jobEvent.Status == JobStatus.Running)
+            {
+                await Task.Delay(1, cancellationToken);
+            }
+
+            FinalStates.AddOrUpdate(jobEvent.JobId, jobEvent.Status, (_, previous) =>
+            {
+                if (StatusOrder[jobEvent.Status] < StatusOrder[previous])
+                {
+                    Violations.Add($"Job {jobEvent.JobId} regressed from {previous} to {jobEvent.Status}");
+                }
+
+                return jobEvent.Status;
+            });
         }
     }
 }
