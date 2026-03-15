@@ -69,6 +69,37 @@ public sealed class WorkflowRunnerTests
     }
 
     [Fact]
+    public async Task Persists_Completed_Jobs_With_OutputPath()
+    {
+        var repository = new InMemoryJobRepository();
+        var metrics = new ThreadSafeJobMetrics();
+        var runner = new ConcurrentWorkflowRunner(
+            new WorkflowRunnerOptions { WorkerCount = 1, QueueCapacity = 3 },
+            new ImageJobCommandCreator(new ConcurrencyTrackingBlurProcessor(delayMs: 1), new NoOpGrayscaleProcessor()),
+            repository,
+            new IJobObserver[] { metrics });
+
+        var job = new ImageJob(Guid.NewGuid(), "in", "out", 2, ImageOperation.Blur);
+
+        try
+        {
+            await runner.EnqueueAsync(job, CancellationToken.None);
+            runner.Complete();
+            await runner.Completion;
+        }
+        finally
+        {
+            await runner.DisposeAsync();
+        }
+
+        Assert.True(repository.TryGet(job.Id, out var record));
+        Assert.NotNull(record);
+        Assert.Equal(JobStatus.Completed, record!.Status);
+        Assert.Equal($"{job.TargetPath}-ok", record.OutputPath);
+        Assert.Equal(1, metrics.CompletedCount);
+    }
+
+    [Fact]
     public async Task Observer_Receives_Lifecycle_Events()
     {
         var collector = new CollectingObserver();
