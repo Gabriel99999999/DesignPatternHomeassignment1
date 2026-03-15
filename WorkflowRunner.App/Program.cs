@@ -1,3 +1,4 @@
+using System.Diagnostics.Metrics;
 using WorkflowRunner.Core.Domain;
 using WorkflowRunner.Core.Factories;
 using WorkflowRunner.Core.Infrastructure;
@@ -48,10 +49,12 @@ await using var runner = new ConcurrentWorkflowRunner(
     repository,
     new[] { metrics });
 
+int counter = 0;
 foreach (var sourcePath in imageFiles)
 {
     var fileName = Path.GetFileNameWithoutExtension(sourcePath);
-    var suffix = operation == ImageOperation.Blur ? "blurred" : "grayscale";
+    var suffix = counter % 2 > 0 ? "blurred" : "grayscale";
+    operation = counter % 2 > 0 ? ImageOperation.Blur : ImageOperation.Grayscale;
     var targetPath = Path.Combine(outputDirectory, $"{fileName}_{suffix}.jpg");
 
     var job = new ImageJob(
@@ -62,6 +65,8 @@ foreach (var sourcePath in imageFiles)
         operation);
 
     await runner.EnqueueAsync(job, CancellationToken.None);
+
+    counter++;
 }
 
 runner.Complete();
@@ -83,11 +88,4 @@ static bool IsJpeg(string path)
     var extension = Path.GetExtension(path);
     return extension.Equals(".jpg", StringComparison.OrdinalIgnoreCase)
         || extension.Equals(".jpeg", StringComparison.OrdinalIgnoreCase);
-}
-
-static ImageOperation ParseOperation(string value)
-{
-    return value.Equals("grayscale", StringComparison.OrdinalIgnoreCase)
-        ? ImageOperation.Grayscale
-        : ImageOperation.Blur;
 }
