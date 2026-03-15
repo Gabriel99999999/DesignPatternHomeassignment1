@@ -5,6 +5,8 @@ using WorkflowRunner.Core.Infrastructure;
 using WorkflowRunner.Core.Processing;
 using WorkflowRunner.Core.Runtime;
 
+var stopwatch = System.Diagnostics.Stopwatch.StartNew();
+
 var inputDirectory = Path.GetFullPath("../../../../input");
 var outputDirectory = Path.GetFullPath("../../../../output");
 var blurRadius = 9;
@@ -39,7 +41,8 @@ var options = new WorkflowRunnerOptions
 
 var repository = new InMemoryJobRepository();
 var metrics = new ThreadSafeJobMetrics();
-var blurProcessor = new BlurProcessor();
+//var blurProcessor = new BlurProcessor();
+var blurProcessor = new SlidingWindowBlurProcessor();
 var grayscaleProcessor = new GrayscaleProcessor();
 var creator = new ImageJobCommandCreator(blurProcessor, grayscaleProcessor);
 
@@ -71,6 +74,10 @@ foreach (var sourcePath in imageFiles)
 
 runner.Complete();
 await runner.Completion;
+
+stopwatch.Stop();
+
+Console.WriteLine($"Total processing time: {stopwatch.Elapsed.TotalSeconds:F2} seconds");
 
 Console.WriteLine($"Input: {inputDirectory}");
 Console.WriteLine($"Output: {outputDirectory}");
