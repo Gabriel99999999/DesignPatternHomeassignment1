@@ -1,85 +1,178 @@
 # DesignPatternHomeassignment1
 
-## Problem Statement
+## 1. Problem Statement
 
-Implement a production-shaped prototype that integrates **three complementary Gang of Four design patterns** to solve a concrete workflow-processing problem. The solution must explicitly address **concurrency correctness, performance, and testability** while remaining close to real-world production constraints (bounded resources, shared state, diagnostics).
+This project implements a production-shaped image workflow runner that processes many jobs concurrently and applies two operations:
 
-## Quality Drivers
+- Blur
+- Grayscale
 
-- **Concurrency correctness** – bounded worker pool, thread-safe shared resources, deterministic lifecycle handling.
-- **Performance discipline** – defined hot path (image processing job) with measurable throughput/latency targets and repeatable benchmarking.
-- **Testability** – 70 %+ automated coverage target with both unit- and integration-level tests plus deterministic stress scenarios.
+The assignment focus is:
 
-## Implemented GoF Patterns
+- explicit use of GoF patterns in a coherent architecture
+- concurrency correctness (bounded resources, deterministic lifecycle updates)
+- measurable performance and repeatable benchmark methodology
+- automated testing with coverage >= 70%
 
-| Pattern | Category | Location / Notes |
-| --- | --- | --- |
-| **Command** | Behavioral | `WorkflowRunner.Core/Commands/*` encapsulate job execution steps for blur and grayscale conversions. |
-| **Template Method + Factory Method** | Behavioral + Creational | `WorkflowRunner.Core/Abstractions/JobCommandCreator` fixes the creation algorithm while delegating `CreateCommandCore` to subclasses; `ImageJobCommandCreator` overrides it to factory the correct concrete `IJobCommand`. This satisfies the creational requirement by embedding a Factory Method inside the Template Method hook. |
-| **Observer** | Behavioral | `WorkflowRunner.Core/Infrastructure/ObserverHub` asynchronously broadcasts lifecycle events to `IJobObserver` implementations such as metrics collectors. |
+## 2. Solution Scope and Constraints
 
-> **Why Template + Factory?** The assignment allows patterns to be composed. `JobCommandCreator.CreateCommand` enforces validation/error hooks (Template Method) and the overridden `CreateCommandCore` is the **Factory Method** responsible for instantiating the appropriate `IJobCommand`. Tests in `WorkflowRunner.Tests/PatternTests.cs` lock in both behaviors.
+- Language/runtime: C# / .NET 9
+- Platform: Windows (uses `System.Drawing`)
+- Input format: `.jpg` / `.jpeg`
+- Runtime model: bounded channel + fixed worker pool
+- Shared state: thread-safe repository and metrics collector
 
-## Architecture Overview
+## 3. Implemented Patterns (Where and How)
 
-```
-┌───────────────┐      ┌──────────────────────────┐      ┌────────────────┐
-│ Program (CLI) │ ───► │ ConcurrentWorkflowRunner │ ───► │ ObserverHub    │
-└──────┬────────┘      │  • bounded channel       │      │  • async fanout│
-       │               │  • worker pool           │      │  • metrics     │
-       ▼               └───────┬───────────────┬──┘      └──────┬────────┘
-┌───────────────┐              │               │                │
-│ Job Repository│◄─────────────┘               │                │
-└───────────────┘          Command Factory     │            IJobObserver(s)
-                            (Template+Factory) │
-                                               ▼
-                                      IJobCommand (Command Pattern)
-```
+### Command
 
-Shared resources (repository, metrics collectors) document their thread-safety guarantees, satisfying the concurrency constraint.
+- `WorkflowRunner.Core/Abstractions/IJobCommand.cs`
+- `WorkflowRunner.Core/Commands/BlurImageCommand.cs`
+- `WorkflowRunner.Core/Commands/GrayscaleImageCommand.cs`
 
-## Quickstart
+Each job execution is wrapped in an `IJobCommand`. The runner executes commands through the interface and does not depend on concrete operation classes.
 
-Requirements: .NET 9 SDK, Windows (System.Drawing).
+### Template Method
+
+- `WorkflowRunner.Core/Abstractions/JobCommandCreator.cs`
+
+`CreateCommand` defines a fixed creation flow with hooks:
+
+- `OnBeforeCreate`
+- `CreateCommandCore`
+- `OnAfterCreate`
+- `OnCreateFailed`
+
+Concrete creators fill in only the variable part (`CreateCommandCore`).
+
+### Factory Method
+
+- `WorkflowRunner.Core/Factories/ImageJobCommandCreator.cs`
+- `WorkflowRunner.Core/Runtime/ConcurrentWorkflowRunner.cs`
+- `WorkflowRunner.App/Program.cs`
+
+`ImageJobCommandCreator.CreateCommandCore` chooses the concrete command (`BlurImageCommand` or `GrayscaleImageCommand`) based on `ImageOperation`.  
+The runner requests commands through the abstract creator, so it stays decoupled from concrete command types.
+
+### Observer
+
+- `WorkflowRunner.Core/Abstractions/IJobObserver.cs`
+- `WorkflowRunner.Core/Infrastructure/ObserverHub.cs`
+- `WorkflowRunner.Core/Infrastructure/ThreadSafeJobMetrics.cs`
+- `WorkflowRunner.Core/Runtime/ConcurrentWorkflowRunner.cs`
+
+The runner publishes lifecycle events (`Queued`, `Running`, `Completed`, `Failed`).  
+`ObserverHub` fans out events asynchronously to observers and isolates observer failures.
+
+## 4. Architecture Walkthrough
+
+1. `WorkflowRunner.App/Program.cs` creates infrastructure (`InMemoryJobRepository`, `ThreadSafeJobMetrics`), processors, and `ImageJobCommandCreator`.
+2. `ConcurrentWorkflowRunner` is created with:
+   - `WorkflowRunnerOptions` (`WorkerCount`, `QueueCapacity`)
+   - command creator
+   - repository
+   - observers
+3. Jobs are enqueued (`EnqueueAsync`) and immediately marked `Queued`.
+4. Worker tasks consume the bounded channel.
+5. For each job, runner marks `Running`, creates the concrete command, executes it, then persists `Completed` or `Failed`.
+6. Every status change is published as a `JobEvent` through `ObserverHub`.
+7. `DisposeAsync` closes queue processing and observer dispatch cleanly.
+
+## 5. Concurrency Model and Correctness Tests
+
+Concurrency model:
+
+- bounded `Channel<ImageJob>` (`BoundedChannelFullMode.Wait`)
+- fixed number of worker tasks
+- thread-safe repository (`ConcurrentDictionary`)
+- thread-safe metrics (`Interlocked`, per-job stopwatches)
+
+Key correctness and stress tests:
+
+- `WorkflowRunner.Tests/WorkflowRunnerTests.cs::Runs_All_Jobs_With_Bounded_Concurrency`
+  - verifies in-flight work never exceeds configured worker count
+- `WorkflowRunner.Tests/WorkflowRunnerTests.cs::Detects_Out_Of_Order_Lifecycle_Events_Under_Load`
+  - load test designed to expose ordering/race issues in lifecycle events
+- `WorkflowRunner.Tests/PatternTests.cs::ObserverHub_Notifies_All_Observers_Even_When_One_Fails`
+  - verifies observer failure isolation
+- `WorkflowRunner.Tests/WorkflowRunnerTests.cs::Persists_Failed_Jobs_When_Command_Throws`
+  - verifies failure path persistence and metrics
+
+## 6. Performance Results and Methodology
+
+Detailed report: `docs/performance-report.md`
+
+Latest recorded runs (from report):
+
+- 2026-03-11, 100 JPGs, 2 workers: 62.9 files/s
+- 2026-03-11, 100 JPGs, 4 workers: 63.7 files/s
+
+Method summary:
+
+1. warm-up run
+2. measured run(s) with fixed input set
+3. capture CLI metrics (`Queued`, `Started`, `Completed`, `Failed`, average duration)
+4. capture wall-clock time
+5. compute throughput and compare configurations
+
+## 7. Test and Coverage Status
+
+Command used:
 
 ```bash
-# Restore + build everything
-dotnet build
-
-# Run unit/pattern tests
-dotnet test WorkflowRunner.Tests
-
-# Execute the workflow runner (defaults to ./input -> ./output)
-dotnet run --project WorkflowRunner.App -- input output 5 4 blur
+dotnet test WorkflowRunner.Tests/WorkflowRunner.Tests.csproj
 ```
 
-### Benchmark / Measurement Script (Completed 2026-03-11)
+Latest local result:
 
-1. Prepare representative JPEGs inside `input/` (100 bird photos committed with the assignment).
-2. Run `dotnet run --project WorkflowRunner.App --no-build -- input output 5 2 blur` and capture:
-   - CLI metrics (`Queued/Started/Completed/Failed/Average duration`).
-   - Wall-clock via PowerShell stopwatch.
-3. Repeat with adjusted configuration (e.g., worker count 4) to compare throughput.
-4. Results and observations are recorded in `docs/performance-report.md`. Latest runs (2026-03-11) achieved 62.9 files/s with 2 workers and 63.7 files/s with 4 workers, showing diminishing returns once processors saturate the CPU.
+- Tests: 16 passed, 0 failed
+- Coverage (`WorkflowRunner.Core`):
+  - Line: 93.66%
+  - Branch: 80.00%
+  - Method: 89.83%
 
-## Testing Strategy
+Coverage output files:
 
-- **Unit tests** (`WorkflowRunner.Tests/PatternTests.cs`): verify Template + Factory hooks, Command dispatch, and Observer isolation semantics.
-- **Integration tests** (`WorkflowRunner.Tests/WorkflowRunnerTests.cs`): exercise the full `ConcurrentWorkflowRunner` with bounded concurrency, failure persistence, observer events, and command selection.
-- **Concurrency stress**: `Runs_All_Jobs_With_Bounded_Concurrency` keeps max parallelism bounded, while `Detects_Out_Of_Order_Lifecycle_Events_Under_Load` injects observer delay and checks that status regressions are impossible even under load.
+- `TestResults/Coverage/coverage.json`
+- `TestResults/Coverage/coverage.info`
 
-Target coverage ≥ 70 %. Coverage is enforced via `Directory.Build.props` (coverlet threshold) and currently sits at **90.49 % line / 80 % branch / 81.35 % method** (`dotnet test WorkflowRunner.Tests` generates `TestResults/Coverage/coverage.json` and fails the build if the threshold is not met). Processor-heavy files are excluded because they depend on Windows GDI+ APIs and are validated via end-to-end benchmarks instead.
+## 8. Quickstart
 
-## Deliverables Checklist
+Prerequisites:
 
-- [x] Source code (this repo).
-- [x] README with scope, constraints, quickstart, pattern map, interaction narrative (this file).
-- [x] Performance report (`docs/performance-report.md`).
-- [ ] Video walkthrough (5 min) covering problem, architecture, patterns, concurrency tests, performance, lessons, AI usage.
-- [x] Architecture Decision Records (see `docs/adr`).
-- [x] Tests demonstrating correctness + concurrency.
+- .NET 9 SDK
+- Windows runtime (for `System.Drawing`)
 
-## Next Steps
+Build and test:
 
-1. Iterate on processor optimisations (SIMD, batching) and append new measurements to `docs/performance-report.md` when meaningful improvements are observed.
-2. Record the 5‑minute walkthrough video covering problem, architecture, patterns, concurrency tests, performance data, lessons, and AI usage.
+```bash
+dotnet build
+dotnet test WorkflowRunner.Tests/WorkflowRunner.Tests.csproj
+```
+
+Run app:
+
+```bash
+dotnet run --project WorkflowRunner.App
+```
+
+Notes:
+
+- Current `Program.cs` uses fixed relative folders:
+  - input: `../../../../input`
+  - output: `../../../../output`
+- It processes only `.jpg` / `.jpeg`.
+
+
+## 9. AI Usage
+
+We used this project as a direct experiment to learn how AI-assisted development works in practice.
+
+Our process was:
+
+- generate initial code with AI
+- manually review and validate what was generated
+- request targeted improvements and refinements from AI
+- use AI as an additional check for deliverable completeness
+
+In short: AI helped us produce and iterate faster, while final acceptance stayed with our own review and verification.
